@@ -1,0 +1,12 @@
+dependencies {
+    implementation libs.postgresql
+    implementation libs.springBootJpa
+    implementation libs.springBootRabbitMq
+    implementation libs.springCloudConfigClient
+    implementation libs.springCloudOpenFeign
+    implementation libs.sqlite
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

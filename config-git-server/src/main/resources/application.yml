@@ -1,0 +1,13 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: "https://github.com/cankinomad/StockyConfig.git"
+          default-label: master
+          skip-ssl-validation: true
+          username: ${java9gitconfigusername}
+          password: ${java9gitconfigpassword}

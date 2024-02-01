@@ -1,0 +1,11 @@
+rootProject.name = 'StokYonetimApplication'
+include 'auth-service'
+include 'config-server'
+include 'user-service'
+include 'api-gateway-service'
+include 'product-service'
+include 'category-service'
+include 'storage-service'
+include 'unit-service'
+include 'config-git-server'
+

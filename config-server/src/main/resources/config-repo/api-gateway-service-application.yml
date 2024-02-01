@@ -1,0 +1,89 @@
+server:
+  port: 80
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: api-gateway-service
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-headers: "*"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        - id: auth-service
+          predicates:
+            - Path=/auth/**
+          uri: http://localhost:9090
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/authservice
+
+        - id: user-service
+          predicates:
+            - Path=/user/**
+          uri: http://localhost:9091
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/userservice
+
+        - id: product-service
+          predicates:
+            - Path=/product/**
+          uri: http://localhost:9092
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/productservice
+
+        - id: category-service
+          predicates:
+            - Path=/category/**
+          uri: http://localhost:9093
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/categoryservice
+
+        - id: storage-service
+          predicates:
+            - Path=/storage/**
+          uri: http://localhost:9094
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/storageservice
+
+        - id: unit-service
+          predicates:
+            - Path=/unit/**
+          uri: http://localhost:9095
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/unitservice
+
+      default-filters:
+        - RewritePath= /(?<segment>.*),/api/v1/$\{segment}

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: config-git-server
+  profiles:
+    active: dev
