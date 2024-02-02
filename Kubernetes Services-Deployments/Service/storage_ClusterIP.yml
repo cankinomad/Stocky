@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip-storage
+spec:
+  selector:
+    team: developer-storage
+  type: ClusterIP
+  ports:
+  - name: storage
+    port: 9094
+    targetPort: 9094

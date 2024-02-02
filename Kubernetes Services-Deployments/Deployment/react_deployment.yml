@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-stockyfe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: developer-stockyfe
+  template:
+    metadata:
+      labels:
+        app: developer-stockyfe
+    spec:
+      containers:
+      - name: container-stockyfe
+        image: aktasberk/stocky_fe:v.0.1
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "1024Mi"
+        ports:
+        - containerPort: 8080

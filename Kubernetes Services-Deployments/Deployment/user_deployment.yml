@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      team: developer-user
+  template:
+    metadata:
+      name: pod-user
+      labels:
+        team: developer-user
+    spec:
+      containers:
+      - name: container-user
+        image: aktasberk/stocky-user:v.0.3
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "1024Mi"
+        ports:
+        - containerPort: 9091
+        env:
+        - name: config_url
+          value: "http://10.116.10.43:8888"
+        - name: java9secretkey
+          value: "java9_secretkey"
+        - name: java9issuer
+          value: "basarsoft"
+        - name: java9audience
+          value: "auth"

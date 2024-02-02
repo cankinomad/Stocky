@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-configservergit
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      team: developer-configservergit
+  template:
+    metadata:
+      name: pod-configservergit
+      labels:
+        team: developer-configservergit
+    spec:
+      containers:
+      - name: container-configservergit
+        image: aktasberk/stocky-config-git-server:v.0.1
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "1024Mi"
+        ports:
+        - containerPort: 8888
+        env:
+        - name: java9gitconfigusername
+          value: cankinomad
+        - name: java9gitconfigpassword
+          value: 123

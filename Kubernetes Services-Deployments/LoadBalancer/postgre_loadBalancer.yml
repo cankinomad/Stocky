@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: load-balancer-postgresql
+spec:
+  selector:
+    team: developer-postgre
+  type: LoadBalancer
+  ports:
+  - name: postgreports
+    port: 11113
+    targetPort: 5432

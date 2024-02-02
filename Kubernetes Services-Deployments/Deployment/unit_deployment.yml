@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-unit
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      team: developer-unit
+  template: 
+    metadata:
+      name: pod-unit
+      labels:
+        team: developer-unit
+    spec:
+      containers:
+      - name: container-unit
+        image: aktasberk/stocky-unit:v.0.5
+        resources:
+          limits:
+            cpu: "150m"
+            memory: "1024Mi"
+        ports:
+        - containerPort: 9095
+        env:
+        - name: config_url
+          value: "http://10.116.10.43:8888"

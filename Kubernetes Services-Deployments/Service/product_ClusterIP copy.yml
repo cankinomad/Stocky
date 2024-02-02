@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip-product
+spec:
+  selector:
+    team: developer-product
+  type: ClusterIP
+  ports:
+  - name: product
+    port: 9092
+    targetPort: 9092
