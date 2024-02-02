@@ -1,112 +1,100 @@
-version: '3.1'
-
-networks:
-  java_network:
-    driver: bridge
-
-
+version: '3'
 services:
-  config-git-server:
-    image: aktasberk/stocky-config-git-server:v.0.2
-    container_name: config-git-server-container
+
+  stocky-frontend:
+    build: .
+    image: aktasberk/stocky-l-fe:v.0.5
+    ports:
+      - 8080:8080
+
+  auth-service:
+    image: aktasberk/stockylite-auth:v.0.1
+    environment:
+      config_url: http://config-server:8888
+      java9secretkey: "12345"
+      java9issuer: "basarsoft"
+      java9audience: "auth_service_tekrar"
+    depends_on:
+      - config-server
+    ports:
+      - 9090:9090
+
+
+  category-service:
+    depends_on:
+      - config-server
+    image: aktasberk/stockylite-category:v.0.1
+    environment:
+      config_url: http://config-server:8888
+    ports:
+      - 9093:9093
+
+
+  product-service:
+    depends_on:
+      - config-server
+    image: aktasberk/stockylite-product:v.0.1
+    environment:
+      config_url: http://config-server:8888
+    ports:
+      - 9092:9092
+
+
+  storage-service:
+    depends_on:
+      - config-server
+    image: aktasberk/stockylite-storage:v.0.1
+    environment:
+      config_url: http://config-server:8888
+    ports:
+      - 9094:9094
+
+  unit-service:
+    depends_on:
+      - config-server
+    image: aktasberk/stockylite-unit:v.0.1
+    environment:
+      config_url: http://config-server:8888
+    ports:
+      - 9095:9095
+
+
+  user-service:
+    depends_on:
+      - config-server
+    image: aktasberk/stockylite-user:v.0.1
+    environment:
+      config_url: http://config-server:8888
+      java9secretkey: 12345
+      java9issuer: basarsoft
+      java9audience: auth_service_tekrar
+    ports:
+      - 9091:9091
+
+
+  config-server:
+    image: aktasberk/stocky-l-config-server:v.0.6
+    environment:
+      config_url: http://config-server:8888
     ports:
       - 8888:8888
-    networks:
-      - java_network
-    environment:
-      - java9gitconfigusername=cankinomad
-      - java9gitconfigpassword=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
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: java-rabbit
-    environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=user
-    networks:
-      - java_network
-    ports:
-      - "5672:5672"
-      - "15672:15672"
 
-  auth:
-    image: aktasberk/stocky-auth:v.0.2
-    container_name: auth-service-container
-    ports:
-      - "9090:9090"
-    networks:
-      - java_network
-    environment:
-      - config_url=http://localhost:8888
 
-  user:
-    image: aktasberk/stocky-user:v.0.2
-    container_name: user-service-container
-    ports:
-      - "9091:9091"
-    networks:
-      - java_network
-    environment:
-      - config_url=http://localhost:8888
-
-  product:
-    image: aktasberk/stocky-product:v.0.2
-    container_name: product-service-container
-    ports:
-      - "9092:9092"
-    networks:
-      - java_network
-    environment:
-      - config_url=http://localhost:8888
-
-  category:
-    image: aktasberk/stocky-category:v.0.2
-    container_name: category-service-container
-    ports:
-      - "9093:9093"
-    networks:
-      - java_network
-    environment:
-      - config_url=http://localhost:8888
-
-  storage:
-    image: aktasberk/stocky-storage:v.0.2
-    container_name: storage-service-container
-    ports:
-      - "9094:9094"
-    networks:
-      - java_network
-    environment:
-      - config_url=http://localhost:8888
-
-  unit:
-    image: aktasberk/stocky-unit:v.0.2
-    container_name: unit-service-container
-    ports:
-      - "9095:9095"
-    networks:
-      - java_network
-    environment:
-      - config_url=http://localhost:8888
-
-  api-gateway:
-    image: aktasberk/stocky-api-gateway:v.0.7
-    container_name: api-gateway-container
+  api-gateway-service:
     depends_on:
-      - config-git-server
-    ports:
-      - "80:80"
-    networks:
-      - java_network
+      - config-server
+    image: aktasberk/stockylite-api-gateway:v.0.1
     environment:
-      - config_url=http://localhost:8888
-
-  sqlite:
-    container_name: my-sqlite-container
-    image: sqlite:latest
-    volumes:
-      - sqlite-data:/stocky.db
+      config_url: http://config-server:8888
     ports:
-      - "5432:5432"
-    restart: always
+      - 80:80
 
-
+  rabbit1:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit1"
+    environment:
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "user"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
