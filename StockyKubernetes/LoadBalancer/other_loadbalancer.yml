@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-loadbalancer-stockyfe
+  name: load-balancer-apigateway
 spec:
   selector:
-    app: developer-stockyfe
+    team: developer-apigateway
   type: LoadBalancer
   ports:
-  - name: stockyfe
+  - name: otherports
     port: 8080
     targetPort: 8080

@@ -15,15 +15,15 @@ spec:
     spec:
       containers:
       - name: container-apigateway
-        image: aktasberk/stocky-api-gateway:v.0.16
+        image: aktasberk/stocky-mastermind-api-gateway:v.0.1
         resources:
           limits:
-            cpu: "300m"
+            cpu: "500m"
             memory: "1024Mi"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         env:
         - name: config_url
-          value: "http://10.116.10.43:8888"
+          value: "http://10.12.13.92:8888"
         - name: java9gitconfigpassword
-          value: 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        
+          value: 123        

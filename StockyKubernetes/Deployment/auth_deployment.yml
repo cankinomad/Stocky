@@ -15,16 +15,16 @@ spec:
     spec:
       containers:
       - name: container-auth
-        image: aktasberk/stocky-auth:v.0.2
+        image: aktasberk/stocky-mastermind-auth:v.0.1
         resources:
           limits:
-            cpu: "150m"
+            cpu: "400m"
             memory: "1024Mi"
         ports:
         - containerPort: 9090
         env:
         - name: config_url
-          value: "http://10.116.10.43:8888"
+          value: "http://10.12.13.92:8888"
         - name: java9secretkey
           value: "java9_secretkey"
         - name: java9issuer

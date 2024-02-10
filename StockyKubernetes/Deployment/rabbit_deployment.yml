@@ -18,13 +18,13 @@ spec:
         image: rabbitmq
         resources:
           limits:
-            cpu: "200m"
+            cpu: "400m"
             memory: "1024Mi"
         ports:
         - containerPort: 5672
         - containerPort: 15672
         env:
         - name: RABBITMQ_DEFAULT_USER
-          value: admin
+          value: user
         - name: RABBITMQ_DEFAULT_PASS
-          value: Aa123456**
+          value: user

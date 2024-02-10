@@ -15,16 +15,16 @@ spec:
     spec:
       containers:
       - name: container-user
-        image: aktasberk/stocky-user:v.0.3
+        image: aktasberk/stocky-mastermind-user:v.0.1
         resources:
           limits:
-            cpu: "200m"
+            cpu: "400m"
             memory: "1024Mi"
         ports:
         - containerPort: 9091
         env:
         - name: config_url
-          value: "http://10.116.10.43:8888"
+          value: "http://10.12.13.92:8888"
         - name: java9secretkey
           value: "java9_secretkey"
         - name: java9issuer

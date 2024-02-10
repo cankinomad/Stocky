@@ -8,5 +8,5 @@ spec:
   type: LoadBalancer
   ports:
   - name: postgreports
-    port: 11113
+    port: 11115
     targetPort: 5432

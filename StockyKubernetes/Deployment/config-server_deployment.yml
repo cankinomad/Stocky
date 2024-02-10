@@ -15,10 +15,10 @@ spec:
     spec:
       containers:
       - name: container-configservergit
-        image: aktasberk/stocky-config-git-server:v.0.1
+        image: aktasberk/stocky-mastermind-config-git-server:v.0.3
         resources:
           limits:
-            cpu: "200m"
+            cpu: "300m"
             memory: "1024Mi"
         ports:
         - containerPort: 8888
@@ -26,4 +26,4 @@ spec:
         - name: java9gitconfigusername
           value: cankinomad
         - name: java9gitconfigpassword
-          value: 123
+          value: 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

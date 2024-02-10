@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-product
+  name: deployment-storage
 spec:
   replicas: 1
   selector:
     matchLabels: 
-      team: developer-product
+      team: developer-storage
   template:
     metadata:
-      name: pod-product
+      name: pod-storage
       labels:
-        team: developer-product
+        team: developer-storage
     spec:
       containers:
-      - name: container-product
-        image: aktasberk/stocky-product:v.0.4
+      - name: container-storage
+        image: aktasberk/stocky-mastermind-storage:v.0.1
         resources:
           limits:
             cpu: "400m"
             memory: "1024Mi"
         ports:
-        - containerPort: 9092
+        - containerPort: 9094
         env:
         - name: config_url
-          value: "http://10.116.10.43:8888"
+          value: "http://10.12.13.92:8888"

@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
       - name: container-stockyfe
-        image: aktasberk/stocky_fe:v.0.1
+        image: aktasberk/stocky-master-fe:v.0.2
         resources:
           limits:
             cpu: "500m"
             memory: "1024Mi"
         ports:
-        - containerPort: 8080
+        - containerPort: 80
