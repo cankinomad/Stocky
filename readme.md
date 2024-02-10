@@ -12,7 +12,7 @@ Tüm servisler çalışıyorsa [buraya](http://localhost:8080) tıklayarak veya 
 
 ### Web Üzerinden Erişim
 
-Proje Kubernetes üzerinden canlıya alındığından [buraya](http://34.170.173.228:8080) tıklayarak hazır veritabanı ile görüntüleyebilirsiniz.
+Proje Kubernetes üzerinden canlıya alındığından [buraya](http://34.76.152.9) tıklayarak hazır veritabanı ile görüntüleyebilirsiniz.
 
 **NOT:** Canlıya alınırken bütçe sorunu sebebiyle düşük performanslı bir makine seçilmiştir. Bu nedenle bağlantıya tıkladığınızda sistemsel sorunlar nedeniyle servislere atılan
 ilk isteklerde yanıtlar geç gelmekte veya arka planda işlenmesine rağmen ön yüzde bildirim alınamamakta. İlk istekten sonra sayfayı yenileyip yeni bir istek atarsanız o andan 
